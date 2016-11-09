@@ -1,0 +1,28 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "script",
+            "otherEntityName": "script",
+            "otherEntityRelationshipName": "userAccount"
+        },
+        {
+            "relationshipType": "one-to-many",
+            "relationshipName": "scheduler",
+            "otherEntityName": "scheduler",
+            "otherEntityRelationshipName": "userAccount"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161108202409",
+    "entityTableName": "user_account",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

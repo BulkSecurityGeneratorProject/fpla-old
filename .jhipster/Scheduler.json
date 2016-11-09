@@ -1,0 +1,22 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "userAccount",
+            "otherEntityName": "userAccount",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "running",
+            "fieldType": "Boolean"
+        }
+    ],
+    "changelogDate": "20161108202410",
+    "entityTableName": "scheduler",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

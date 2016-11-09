@@ -1,0 +1,29 @@
+{
+    "fluentMethods": true,
+    "relationships": [
+        {
+            "relationshipName": "userAccount",
+            "otherEntityName": "userAccount",
+            "relationshipType": "many-to-one",
+            "otherEntityField": "id"
+        }
+    ],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required"
+            ]
+        },
+        {
+            "fieldName": "text",
+            "fieldType": "String"
+        }
+    ],
+    "changelogDate": "20161108202408",
+    "entityTableName": "script",
+    "dto": "no",
+    "pagination": "no",
+    "service": "no"
+}

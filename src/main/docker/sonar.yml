@@ -1,0 +1,8 @@
+version: '2'
+services:
+    fpla-sonar:
+        container_name: fpla-sonar
+        image: sonarqube:6.0-alpine
+        ports:
+            - 9000:9000
+            - 9092:9092
