@@ -4,10 +4,10 @@ import com.codahale.metrics.annotation.Timed;
 import de.ananyev.fpla.domain.Script;
 
 import de.ananyev.fpla.repository.ScriptRepository;
+import de.ananyev.fpla.script.ScriptRunner;
 import de.ananyev.fpla.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +27,7 @@ import java.util.Optional;
 public class ScriptResource {
 
     private final Logger log = LoggerFactory.getLogger(ScriptResource.class);
-        
+
     @Inject
     private ScriptRepository scriptRepository;
 
@@ -118,4 +118,41 @@ public class ScriptResource {
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("script", id.toString())).build();
     }
 
+    /**
+     * GET /script/:id/run : start the "id" script.
+     *
+     * @param id the id of the script to run
+     * @return the ResponseEntity with status 200 (OK) and with body the script, or with status 404 (Not Found)
+     */
+    @GetMapping("/scripts/{id}/run")
+    @Timed
+    public ResponseEntity<Script> start(@PathVariable Long id) {
+        log.debug("REST request to run Script : {}", id);
+        Script script = scriptRepository.findOne(id);
+        new ScriptRunner(script).run();
+        return Optional.ofNullable(script)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * GET /script/:id/screen: make the screen shot of running "id" script.
+     *
+     * @param id the id of the script to get status of
+     * @return the ResponseEntity with status 200 (OK) and with body the script, or with status 404 (Not Found)
+     */
+    @GetMapping("/scripts/{id}/screen")
+    @Timed
+    public ResponseEntity<Script> getStatus(@PathVariable Long id) {
+        log.debug("REST request to run Script : {}", id);
+        Script script = scriptRepository.findOne(id);
+        new ScriptRunner(script).run();
+        return Optional.ofNullable(script)
+            .map(result -> new ResponseEntity<>(
+                result,
+                HttpStatus.OK))
+            .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

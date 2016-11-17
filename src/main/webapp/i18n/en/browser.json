@@ -1,0 +1,24 @@
+{
+    "fplaApp": {
+        "browser" : {
+            "home": {
+                "title": "Browsers",
+                "createLabel": "Create a new Browser",
+                "createOrEditLabel": "Create or edit a Browser",
+                "search": "Search for Browser"
+            },
+            "created": "A new Browser is created with identifier {{ param }}",
+            "updated": "A Browser is updated with identifier {{ param }}",
+            "deleted": "A Browser is deleted with identifier {{ param }}",
+            "delete": {
+                "question": "Are you sure you want to delete Browser {{ id }}?"
+            },
+            "detail": {
+                "title": "Browser"
+            },
+            "name": "Name",
+            "text": "Text",
+            "userAccount": "User Account"
+        }
+    }
+}

@@ -1,0 +1,31 @@
+
+<div>
+    <h2><span data-translate="fplaApp.browser.detail.title">Browser</span> {{vm.browser.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="fplaApp.browser.name">Name</span></dt>
+        <dd>
+            <span>{{vm.browser.name}}</span>
+        </dd>
+        <dt><span data-translate="fplaApp.browser.text">Text</span></dt>
+        <dd>
+            <span>{{vm.browser.text}}</span>
+        </dd>
+        <dt><span data-translate="fplaApp.browser.userAccount">User Account</span></dt>
+        <dd>
+            <a ui-sref="user-account-detail({id:vm.browser.userAccount.id})">{{vm.browser.userAccount.id}}</a>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="browser-detail.edit({id:vm.browser.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>

@@ -26,6 +26,7 @@ public class Script implements Serializable {
     @Column(name = "name", nullable = false)
     private String name;
 
+    //TODO change to Lob
     @Column(name = "text")
     private String text;
 
