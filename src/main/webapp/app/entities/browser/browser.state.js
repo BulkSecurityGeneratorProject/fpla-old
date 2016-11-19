@@ -97,29 +97,6 @@
             onEnter: ['$stateParams', '$state', 'Browser', function($stateParams, $state, Browser) {
                 Browser.save({});
                 $state.go('browser', null, { reload: 'browser'});
-
-                // browser.save();
-                //vm.save();
-                // $uibModal.open({
-                //     templateUrl: 'app/entities/browser/browser-dialog.html',
-                //     controller: 'BrowserDialogController',
-                //     controllerAs: 'vm',
-                //     backdrop: 'static',
-                //     size: 'lg',
-                //     resolve: {
-                //         entity: function () {
-                //             return {
-                //                 name: null,
-                //                 text: null,
-                //                 id: null
-                //             };
-                //         }
-                //     }
-                // }).result.then(function() {
-                //     $state.go('browser', null, { reload: 'browser' });
-                // }, function() {
-                //     $state.go('browser');
-                // });
             }]
         })
         .state('browser.edit', {
@@ -169,6 +146,17 @@
                 }, function() {
                     $state.go('^');
                 });
+            }]
+        })
+        .state('browser.run', {
+            parent: 'browser',
+            url: '/{browserId}/run/{scriptId}',
+            data: {
+                authorities: ['ROLE_USER']
+            },
+            onEnter: ['$stateParams', '$state', 'Browser', function($stateParams, $state, Browser) {
+                Browser.run({ browserId : $stateParams.browserId, scriptId : $stateParams.scriptId});
+                $state.go('browser', null, { reload: 'browser'});
             }]
         });
     }

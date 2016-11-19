@@ -1,5 +1,6 @@
 package de.ananyev.fpla.domain
 
+import com.fasterxml.jackson.annotation.JsonIgnore
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.phantomjs.PhantomJSDriver
 import org.openqa.selenium.phantomjs.PhantomJSDriverService
@@ -11,7 +12,9 @@ import java.io.Serializable
  */
 class Browser : Serializable {
     var id: Int
+    @JsonIgnore
     var driver: WebDriver
+    var type: BrowserType
 
     constructor() {
         val caps = DesiredCapabilities()
@@ -23,5 +26,6 @@ class Browser : Serializable {
         )
         driver = PhantomJSDriver(caps)
         id = 0
+        type = BrowserType.phantomjs
     }
 }

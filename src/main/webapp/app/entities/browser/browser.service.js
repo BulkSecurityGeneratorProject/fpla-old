@@ -20,7 +20,8 @@
                     return data;
                 }
             },
-            'update': { method:'PUT' }
+            'update': { method:'PUT' },
+            'run': { method: 'GET', url: 'api/browsers/:browserId/run/:scriptId' }
         });
     }
 })();
