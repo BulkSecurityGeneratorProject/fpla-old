@@ -57,5 +57,9 @@
         timeToLiveSeconds="3600">
     </cache>
 
+    <cache name="de.ananyev.fpla.domain.Sequence"
+        timeToLiveSeconds="3600">
+    </cache>
+
     <!-- jhipster-needle-ehcache-add-entry -->
 </ehcache>

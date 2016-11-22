@@ -64,6 +64,8 @@ class BrowserResource {
     run(@PathVariable int browserId, @PathVariable Long scriptId) {
         def script = scriptRepository.findOne(scriptId)
         def driver = browsers.find { it.id == browserId }?.driver
+        def url = "https://youtube.com"
+        //def blba = "advasdv ${url}"
         Runnable runnable = {
             def ignore = (driver as JavascriptExecutor).executeScript(script.getText())
             Thread.sleep(5000)
