@@ -2,9 +2,9 @@
 
 describe('Controller Tests', function() {
 
-    describe('Scheduler Management Detail Controller', function() {
+    describe('Schedule Management Detail Controller', function() {
         var $scope, $rootScope;
-        var MockEntity, MockPreviousState, MockScheduler, MockUserAccount;
+        var MockEntity, MockPreviousState, MockSchedule;
         var createController;
 
         beforeEach(inject(function($injector) {
@@ -12,8 +12,7 @@ describe('Controller Tests', function() {
             $scope = $rootScope.$new();
             MockEntity = jasmine.createSpy('MockEntity');
             MockPreviousState = jasmine.createSpy('MockPreviousState');
-            MockScheduler = jasmine.createSpy('MockScheduler');
-            MockUserAccount = jasmine.createSpy('MockUserAccount');
+            MockSchedule = jasmine.createSpy('MockSchedule');
             
 
             var locals = {
@@ -21,18 +20,17 @@ describe('Controller Tests', function() {
                 '$rootScope': $rootScope,
                 'entity': MockEntity,
                 'previousState': MockPreviousState,
-                'Scheduler': MockScheduler,
-                'UserAccount': MockUserAccount
+                'Schedule': MockSchedule
             };
             createController = function() {
-                $injector.get('$controller')("SchedulerDetailController", locals);
+                $injector.get('$controller')("ScheduleDetailController", locals);
             };
         }));
 
 
         describe('Root Scope Listening', function() {
             it('Unregisters root scope listener upon scope destruction', function() {
-                var eventType = 'fplaApp:schedulerUpdate';
+                var eventType = 'fplaApp:scheduleUpdate';
 
                 createController();
                 expect($rootScope.$$listenerCount[eventType]).toEqual(1);

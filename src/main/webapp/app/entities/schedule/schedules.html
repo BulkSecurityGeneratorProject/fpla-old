@@ -1,13 +1,13 @@
 <div>
-    <h2 data-translate="fplaApp.scheduler.home.title">Schedulers</h2>
+    <h2 data-translate="fplaApp.schedule.home.title">Schedules</h2>
     <jhi-alert></jhi-alert>
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-4 no-padding-left">
-                <button class="btn btn-primary" ui-sref="scheduler.new" >
+                <button class="btn btn-primary" ui-sref="schedule.new" >
                     <span class="glyphicon glyphicon-plus"></span>
-                    <span  data-translate="fplaApp.scheduler.home.createLabel">
-                        Create new Scheduler
+                    <span  data-translate="fplaApp.schedule.home.createLabel">
+                        Create new Schedule
                     </span>
                 </button>
             </div>
@@ -19,34 +19,38 @@
             <thead>
                 <tr>
                     <th><span data-translate="global.field.id">ID</span></th>
-                    <th><span data-translate="fplaApp.scheduler.running">Running</span></th>
-                    <th><span data-translate="fplaApp.scheduler.userAccount">User Account</span></th>
+                    <th><span data-translate="fplaApp.schedule.name">Name</span></th>
+                    <th><span data-translate="fplaApp.schedule.description">Description</span></th>
+                    <th><span data-translate="fplaApp.schedule.cronString">Cron String</span></th>
+                    <th><span data-translate="fplaApp.schedule.active">Active</span></th>
+                    <th><span data-translate="fplaApp.schedule.scenario">Scenario</span></th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="scheduler in vm.schedulers track by scheduler.id">
-                    <td><a ui-sref="scheduler-detail({id:scheduler.id})">{{scheduler.id}}</a></td>
-                    <td>{{scheduler.running}}</td>
-                    <td>
-                        <a ui-sref="user-account-detail({id:scheduler.userAccount.id})">{{scheduler.userAccount.id}}</a>
-                    </td>
+                <tr ng-repeat="schedule in vm.schedules track by schedule.id">
+                    <td><a ui-sref="schedule-detail({id:schedule.id})">{{schedule.id}}</a></td>
+                    <td>{{schedule.name}}</td>
+                    <td>{{schedule.description}}</td>
+                    <td>{{schedule.cronString}}</td>
+                    <td>{{schedule.active}}</td>
+                    <td data-translate="{{'fplaApp.Scenario.' + schedule.scenario}}">{{schedule.scenario}}</td>
                     <td class="text-right">
                         <div class="btn-group flex-btn-group-container">
                             <button type="submit"
-                                    ui-sref="scheduler-detail({id:scheduler.id})"
+                                    ui-sref="schedule-detail({id:schedule.id})"
                                     class="btn btn-info btn-sm">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.view"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="scheduler.edit({id:scheduler.id})"
+                                    ui-sref="schedule.edit({id:schedule.id})"
                                     class="btn btn-primary btn-sm">
                                 <span class="glyphicon glyphicon-pencil"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"></span>
                             </button>
                             <button type="submit"
-                                    ui-sref="scheduler.delete({id:scheduler.id})"
+                                    ui-sref="schedule.delete({id:schedule.id})"
                                     class="btn btn-danger btn-sm">
                                 <span class="glyphicon glyphicon-remove-circle"></span>
                                 <span class="hidden-xs hidden-sm" data-translate="entity.action.delete"></span>

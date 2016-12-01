@@ -11,5 +11,5 @@ import java.util.List;
  */
 @SuppressWarnings("unused")
 public interface ScriptRepository extends JpaRepository<Script,Long> {
-
+    List<Script> findByName(String name);
 }

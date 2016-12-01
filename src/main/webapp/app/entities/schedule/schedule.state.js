@@ -9,53 +9,55 @@
 
     function stateConfig($stateProvider) {
         $stateProvider
-        .state('scheduler', {
+        .state('schedule', {
             parent: 'entity',
-            url: '/scheduler',
+            url: '/schedule',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'fplaApp.scheduler.home.title'
+                pageTitle: 'fplaApp.schedule.home.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/scheduler/schedulers.html',
-                    controller: 'SchedulerController',
+                    templateUrl: 'app/entities/schedule/schedules.html',
+                    controller: 'ScheduleController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('scheduler');
+                    $translatePartialLoader.addPart('schedule');
+                    $translatePartialLoader.addPart('scenario');
                     $translatePartialLoader.addPart('global');
                     return $translate.refresh();
                 }]
             }
         })
-        .state('scheduler-detail', {
+        .state('schedule-detail', {
             parent: 'entity',
-            url: '/scheduler/{id}',
+            url: '/schedule/{id}',
             data: {
                 authorities: ['ROLE_USER'],
-                pageTitle: 'fplaApp.scheduler.detail.title'
+                pageTitle: 'fplaApp.schedule.detail.title'
             },
             views: {
                 'content@': {
-                    templateUrl: 'app/entities/scheduler/scheduler-detail.html',
-                    controller: 'SchedulerDetailController',
+                    templateUrl: 'app/entities/schedule/schedule-detail.html',
+                    controller: 'ScheduleDetailController',
                     controllerAs: 'vm'
                 }
             },
             resolve: {
                 translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                    $translatePartialLoader.addPart('scheduler');
+                    $translatePartialLoader.addPart('schedule');
+                    $translatePartialLoader.addPart('scenario');
                     return $translate.refresh();
                 }],
-                entity: ['$stateParams', 'Scheduler', function($stateParams, Scheduler) {
-                    return Scheduler.get({id : $stateParams.id}).$promise;
+                entity: ['$stateParams', 'Schedule', function($stateParams, Schedule) {
+                    return Schedule.get({id : $stateParams.id}).$promise;
                 }],
                 previousState: ["$state", function ($state) {
                     var currentStateData = {
-                        name: $state.current.name || 'scheduler',
+                        name: $state.current.name || 'schedule',
                         params: $state.params,
                         url: $state.href($state.current.name, $state.params)
                     };
@@ -63,22 +65,22 @@
                 }]
             }
         })
-        .state('scheduler-detail.edit', {
-            parent: 'scheduler-detail',
+        .state('schedule-detail.edit', {
+            parent: 'schedule-detail',
             url: '/detail/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/scheduler/scheduler-dialog.html',
-                    controller: 'SchedulerDialogController',
+                    templateUrl: 'app/entities/schedule/schedule-dialog.html',
+                    controller: 'ScheduleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Scheduler', function(Scheduler) {
-                            return Scheduler.get({id : $stateParams.id}).$promise;
+                        entity: ['Schedule', function(Schedule) {
+                            return Schedule.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
@@ -88,78 +90,82 @@
                 });
             }]
         })
-        .state('scheduler.new', {
-            parent: 'scheduler',
+        .state('schedule.new', {
+            parent: 'schedule',
             url: '/new',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/scheduler/scheduler-dialog.html',
-                    controller: 'SchedulerDialogController',
+                    templateUrl: 'app/entities/schedule/schedule-dialog.html',
+                    controller: 'ScheduleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
                         entity: function () {
                             return {
-                                running: null,
+                                name: null,
+                                description: null,
+                                cronString: null,
+                                active: null,
+                                scenario: null,
                                 id: null
                             };
                         }
                     }
                 }).result.then(function() {
-                    $state.go('scheduler', null, { reload: 'scheduler' });
+                    $state.go('schedule', null, { reload: 'schedule' });
                 }, function() {
-                    $state.go('scheduler');
+                    $state.go('schedule');
                 });
             }]
         })
-        .state('scheduler.edit', {
-            parent: 'scheduler',
+        .state('schedule.edit', {
+            parent: 'schedule',
             url: '/{id}/edit',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/scheduler/scheduler-dialog.html',
-                    controller: 'SchedulerDialogController',
+                    templateUrl: 'app/entities/schedule/schedule-dialog.html',
+                    controller: 'ScheduleDialogController',
                     controllerAs: 'vm',
                     backdrop: 'static',
                     size: 'lg',
                     resolve: {
-                        entity: ['Scheduler', function(Scheduler) {
-                            return Scheduler.get({id : $stateParams.id}).$promise;
+                        entity: ['Schedule', function(Schedule) {
+                            return Schedule.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('scheduler', null, { reload: 'scheduler' });
+                    $state.go('schedule', null, { reload: 'schedule' });
                 }, function() {
                     $state.go('^');
                 });
             }]
         })
-        .state('scheduler.delete', {
-            parent: 'scheduler',
+        .state('schedule.delete', {
+            parent: 'schedule',
             url: '/{id}/delete',
             data: {
                 authorities: ['ROLE_USER']
             },
             onEnter: ['$stateParams', '$state', '$uibModal', function($stateParams, $state, $uibModal) {
                 $uibModal.open({
-                    templateUrl: 'app/entities/scheduler/scheduler-delete-dialog.html',
-                    controller: 'SchedulerDeleteController',
+                    templateUrl: 'app/entities/schedule/schedule-delete-dialog.html',
+                    controller: 'ScheduleDeleteController',
                     controllerAs: 'vm',
                     size: 'md',
                     resolve: {
-                        entity: ['Scheduler', function(Scheduler) {
-                            return Scheduler.get({id : $stateParams.id}).$promise;
+                        entity: ['Schedule', function(Schedule) {
+                            return Schedule.get({id : $stateParams.id}).$promise;
                         }]
                     }
                 }).result.then(function() {
-                    $state.go('scheduler', null, { reload: 'scheduler' });
+                    $state.go('schedule', null, { reload: 'schedule' });
                 }, function() {
                     $state.go('^');
                 });

@@ -1,0 +1,9 @@
+{
+    "fplaApp": {
+        "Scenario" : {
+            "null": "",
+            "testScenario": "testScenario",
+            "checkIp": "checkIp"
+        }
+    }
+}

@@ -9,8 +9,7 @@
                 "main": "Entities",
                 "script": "Script",
                 "userAccount": "User Account",
-                "scheduler": "Scheduler",
-                "sequence": "Sequence",
+                "schedule": "Schedule",
                 "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)"
             },
             "account": {

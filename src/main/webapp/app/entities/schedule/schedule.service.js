@@ -2,12 +2,12 @@
     'use strict';
     angular
         .module('fplaApp')
-        .factory('Scheduler', Scheduler);
+        .factory('Schedule', Schedule);
 
-    Scheduler.$inject = ['$resource'];
+    Schedule.$inject = ['$resource'];
 
-    function Scheduler ($resource) {
-        var resourceUrl =  'api/schedulers/:id';
+    function Schedule ($resource) {
+        var resourceUrl =  'api/schedules/:id';
 
         return $resource(resourceUrl, {}, {
             'query': { method: 'GET', isArray: true},

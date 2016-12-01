@@ -1,0 +1,37 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "description",0 0/5 14 * * ?
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "cronString",
+            "fieldType": "String",
+            "fieldValidateRules": [
+                "required",
+                "pattern"
+            ],
+            "fieldValidateRulesPattern": "[a-z]"
+        },
+        {
+            "fieldName": "active",
+            "fieldType": "Boolean"
+        },
+        {
+            "fieldName": "scenario",
+            "fieldType": "Scenario",
+            "fieldValues": "testScenario, checkIp"
+        }
+    ],
+    "changelogDate": "20161124173833",
+    "dto": "no",
+    "service": "no",
+    "entityTableName": "schedule",
+    "pagination": "no"
+}

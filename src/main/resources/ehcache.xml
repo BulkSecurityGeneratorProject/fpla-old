@@ -36,7 +36,7 @@
     <cache name="de.ananyev.fpla.domain.User.persistentTokens"
            timeToLiveSeconds="3600">
     </cache>
-    
+
     <cache name="de.ananyev.fpla.domain.Script"
         timeToLiveSeconds="3600">
     </cache>
@@ -49,15 +49,11 @@
         timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="de.ananyev.fpla.domain.UserAccount.schedulers"
-        timeToLiveSeconds="3600">
-    </cache>
-
     <cache name="de.ananyev.fpla.domain.Scheduler"
         timeToLiveSeconds="3600">
     </cache>
 
-    <cache name="de.ananyev.fpla.domain.Sequence"
+    <cache name="de.ananyev.fpla.domain.Schedule"
         timeToLiveSeconds="3600">
     </cache>
 

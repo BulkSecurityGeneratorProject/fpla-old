@@ -32,11 +32,6 @@ public class UserAccount implements Serializable {
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private Set<Script> scripts = new HashSet<>();
 
-    @OneToMany(mappedBy = "userAccount")
-    @JsonIgnore
-    @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    private Set<Scheduler> schedulers = new HashSet<>();
-
     public Long getId() {
         return id;
     }
@@ -81,31 +76,6 @@ public class UserAccount implements Serializable {
 
     public void setScripts(Set<Script> scripts) {
         this.scripts = scripts;
-    }
-
-    public Set<Scheduler> getSchedulers() {
-        return schedulers;
-    }
-
-    public UserAccount schedulers(Set<Scheduler> schedulers) {
-        this.schedulers = schedulers;
-        return this;
-    }
-
-    public UserAccount addScheduler(Scheduler scheduler) {
-        schedulers.add(scheduler);
-        scheduler.setUserAccount(this);
-        return this;
-    }
-
-    public UserAccount removeScheduler(Scheduler scheduler) {
-        schedulers.remove(scheduler);
-        scheduler.setUserAccount(null);
-        return this;
-    }
-
-    public void setSchedulers(Set<Scheduler> schedulers) {
-        this.schedulers = schedulers;
     }
 
     @Override

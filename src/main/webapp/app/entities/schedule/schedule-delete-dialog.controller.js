@@ -3,14 +3,14 @@
 
     angular
         .module('fplaApp')
-        .controller('SchedulerDeleteController',SchedulerDeleteController);
+        .controller('ScheduleDeleteController',ScheduleDeleteController);
 
-    SchedulerDeleteController.$inject = ['$uibModalInstance', 'entity', 'Scheduler'];
+    ScheduleDeleteController.$inject = ['$uibModalInstance', 'entity', 'Schedule'];
 
-    function SchedulerDeleteController($uibModalInstance, entity, Scheduler) {
+    function ScheduleDeleteController($uibModalInstance, entity, Schedule) {
         var vm = this;
 
-        vm.scheduler = entity;
+        vm.schedule = entity;
         vm.clear = clear;
         vm.confirmDelete = confirmDelete;
         
@@ -19,7 +19,7 @@
         }
 
         function confirmDelete (id) {
-            Scheduler.delete({id: id},
+            Schedule.delete({id: id},
                 function () {
                     $uibModalInstance.close(true);
                 });

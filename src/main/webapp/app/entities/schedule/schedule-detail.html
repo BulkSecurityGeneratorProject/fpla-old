@@ -1,0 +1,39 @@
+
+<div>
+    <h2><span data-translate="fplaApp.schedule.detail.title">Schedule</span> {{vm.schedule.id}}</h2>
+    <hr>
+    <jhi-alert-error></jhi-alert-error>
+    <dl class="dl-horizontal jh-entity-details">
+        <dt><span data-translate="fplaApp.schedule.name">Name</span></dt>
+        <dd>
+            <span>{{vm.schedule.name}}</span>
+        </dd>
+        <dt><span data-translate="fplaApp.schedule.description">Description</span></dt>
+        <dd>
+            <span>{{vm.schedule.description}}</span>
+        </dd>
+        <dt><span data-translate="fplaApp.schedule.cronString">Cron String</span></dt>
+        <dd>
+            <span>{{vm.schedule.cronString}}</span>
+        </dd>
+        <dt><span data-translate="fplaApp.schedule.active">Active</span></dt>
+        <dd>
+            <span>{{vm.schedule.active}}</span>
+        </dd>
+        <dt><span data-translate="fplaApp.schedule.scenario">Scenario</span></dt>
+        <dd>
+            <span data-translate="{{'fplaApp.Scenario.' + vm.schedule.scenario}}">{{vm.schedule.scenario}}</span>
+        </dd>
+    </dl>
+
+    <button type="submit"
+            ui-sref="{{ vm.previousState }}"
+            class="btn btn-info">
+        <span class="glyphicon glyphicon-arrow-left"></span>&nbsp;<span data-translate="entity.action.back"> Back</span>
+    </button>
+
+    <button type="button" ui-sref="schedule-detail.edit({id:vm.schedule.id})" class="btn btn-primary">
+        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="hidden-xs hidden-sm" data-translate="entity.action.edit"> Edit</span>
+    </button>
+</div>
