@@ -234,4 +234,17 @@ public class ScheduleResourceIntTest {
         List<Schedule> schedules = scheduleRepository.findAll();
         assertThat(schedules).hasSize(databaseSizeBeforeDelete - 1);
     }
+
+    @Test
+    @Transactional
+    public void runSchedule() throws Exception {
+        // Initialize the database
+        schedule.setActive(true);
+        scheduleRepository.saveAndFlush(schedule);
+
+        // Run the schedule
+        restScheduleMockMvc.perform(get("/api/schdules/{id}/run", schedule.getId())
+                .accept(TestUtil.APPLICATION_JSON_UTF8))
+                .andExpect(status().isOk());
+    }
 }

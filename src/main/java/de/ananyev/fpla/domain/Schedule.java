@@ -1,7 +1,6 @@
 package de.ananyev.fpla.domain;
 
 import de.ananyev.fpla.domain.enumeration.ScenarioEnum;
-import de.ananyev.fpla.scenario.Scenario;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 

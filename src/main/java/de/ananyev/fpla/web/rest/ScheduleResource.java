@@ -5,9 +5,12 @@ import de.ananyev.fpla.domain.Schedule;
 
 import de.ananyev.fpla.repository.ScheduleRepository;
 import de.ananyev.fpla.scenario.ScenarioScheduler;
+import de.ananyev.fpla.util.exception.ScriptNotFoundException;
 import de.ananyev.fpla.web.rest.util.HeaderUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -50,8 +53,14 @@ public class ScheduleResource {
             return ResponseEntity.badRequest().headers(HeaderUtil.createFailureAlert("schedule", "idexists", "A new schedule cannot already have an ID")).body(null);
         }
         Schedule result = scheduleRepository.save(schedule);
-        if(result.isActive()) {
-            scheduler.addSchedule(result);
+        if (result.isActive()) {
+            try {
+                scheduler.addSchedule(result);
+            } catch (ScriptNotFoundException e) {
+                return ResponseEntity.created(new URI("/api/schedules/" + result.getId()))
+                    .headers(HeaderUtil.createEntityCreationAlert("schedule", result.getId().toString()))
+                    .body(result);
+            }
         }
         return ResponseEntity.created(new URI("/api/schedules/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert("schedule", result.getId().toString()))
@@ -75,7 +84,13 @@ public class ScheduleResource {
             return createSchedule(schedule);
         }
         Schedule result = scheduleRepository.save(schedule);
-        if (schedule.isActive()) {
+        if (result.isActive()) {
+            try {
+                scheduler.addSchedule(result);
+            } catch (ScriptNotFoundException e) {
+                return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+            }
+        } else {
             scheduler.stopSchedule(schedule);
         }
         return ResponseEntity.ok()
@@ -126,6 +141,21 @@ public class ScheduleResource {
         log.debug("REST request to delete Schedule : {}", id);
         scheduleRepository.delete(id);
         return ResponseEntity.ok().headers(HeaderUtil.createEntityDeletionAlert("schedule", id.toString())).build();
+    }
+
+    @GetMapping("/schedules/{id}/run")
+    @Timed
+    public ResponseEntity<Void> runScheduler(@PathVariable Long id) {
+        log.debug("REST request to run Schedule : {}", id);
+        Schedule result = scheduleRepository.findOne(id);
+        if (result.isActive()) {
+            try {
+                scheduler.addSchedule(result);
+            } catch (ScriptNotFoundException e) {
+                return new ResponseEntity<>(HttpStatus.FAILED_DEPENDENCY);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }

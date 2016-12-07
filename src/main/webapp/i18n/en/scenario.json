@@ -3,7 +3,7 @@
         "Scenario" : {
             "null": "",
             "testScenario": "testScenario",
-            "checkIp": "checkIp"
+            "checkIpScenario": "checkIpScenario"
         }
     }
 }
